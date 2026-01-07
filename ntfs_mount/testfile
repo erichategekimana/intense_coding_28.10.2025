@@ -1,0 +1,26 @@
+#!/bin/bash
+c_devices=$(lsblk -f | grep -E "sdb|sdc|sdd")
+echo "$c_devices"
+
+
+if [[ "$c_devices" == *"ntfs"* ]]; then
+	echo "NTFS drive detected"
+	echo " "
+else
+	echo "No NTFS drive found"
+	echo " "
+fi
+
+lsblk -f | grep -E "ntfs" | awk '{print $1}'| while read -r partition; do
+
+
+# Added the $ sign here
+dev_name=$(echo "$partition" | sed 's/[^a-zA-Z0-9]//g')
+
+echo "Mounting /dev/$dev_name..."
+sudo mkdir -p "/media/windows/ntfs/$dev_name"
+
+# Removed quotes from between the paths
+sudo mount -t ntfs-3g -o remove_hiberfile "/dev/$dev_name" "/media/windows/ntfs/$dev_name"
+done
+
