@@ -9,18 +9,20 @@ if [[ "$c_devices" == *"ntfs"* ]]; then
 else
 	echo "No NTFS drive found"
 	echo " "
+	sleep 1
+	exit 0
 fi
 
-lsblk -f | grep -E "ntfs" | awk '{print $1}'| while read -r partition; do
+ntfs_check=$(lsblk -f | grep -E "ntfs" | awk '{print $1}')
 
+echo "$ntfs_check" | while read -r partition; do
 
-# Added the $ sign here
 dev_name=$(echo "$partition" | sed 's/[^a-zA-Z0-9]//g')
 
 echo "Mounting /dev/$dev_name..."
+echo " "
+sleep 2
 sudo mkdir -p "/media/windows/ntfs/$dev_name"
-
-# Removed quotes from between the paths
 sudo mount -t ntfs-3g -o remove_hiberfile "/dev/$dev_name" "/media/windows/ntfs/$dev_name"
 done
-
+echo "done"
