@@ -1,0 +1,25 @@
+# python env
+bin/*
+lib/*
+lib64/*
+pyvenv.cfg
+
+# python cache
+
+*.pyc
+venv/*
+__pycache__/
+
+# environment variables
+
+.env
+
+# os files
+.DS_store
+thimbs.db
+
+# IDE files
+.vscode
+.swo
+.swp
+idea/
