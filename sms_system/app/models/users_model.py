@@ -1,3 +1,5 @@
+from ..database import db
+
 class Customers(db.Model):
     __Tablename__ = 'users'
 	id = db.Column(db.Integer, primary_key=True)
