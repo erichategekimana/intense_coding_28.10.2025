@@ -1,4 +1,6 @@
 from app.database import db
+from datetime import datetime
+
 
 
 class SMS_raw_data(db.Model):
@@ -8,3 +10,5 @@ class SMS_raw_data(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     data = db.Column(db.Text, nullable=False)
     create_at = db.Column(db.DateTime, nullable=False)
+
+
